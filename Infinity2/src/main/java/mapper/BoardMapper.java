@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import common.DBUtil;
 import model.BoardVO;
 import model.PagingDTO;
 
@@ -16,9 +17,7 @@ public class BoardMapper {
 		
 
 		//회원가입후 로그인페이지로 이동.
-		String url = "jdbc:mysql://localhost:3306/bigdata?serverTimezone=Asia/Seoul";
-		String user = "root"; 
-		String password = "bigdata";
+
 
 		StringBuffer qry = new StringBuffer();
 		qry.append(" INSERT INTO big_board (bo_num, bo_category, bo_title,  ");
@@ -30,8 +29,7 @@ public class BoardMapper {
 		PreparedStatement stmt = null;
 
 		try{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection(url, user, password);
+			conn = DBUtil.getConnection();
 			
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, vo.getBo_category());
@@ -49,12 +47,7 @@ public class BoardMapper {
 		} catch (Exception e){
 			
 		} finally {
-			try{
-				if(stmt != null) stmt.close();
-				if(conn != null) conn.close();
-			} catch(Exception e) {
-				
-			} 
+			DBUtil.seClose(null, stmt, conn);
 		}
 	}
 	
@@ -65,9 +58,7 @@ public class BoardMapper {
 	public void update(BoardVO vo) {
 
 		//회원가입후 로그인페이지로 이동.
-		String url = "jdbc:mysql://localhost:3306/bigdata?serverTimezone=Asia/Seoul";
-		String user = "root"; 
-		String password = "bigdata";
+		
 
 		StringBuffer qry = new StringBuffer();
 		qry.append(" UPDATE big_board SET bo_category = ?, bo_title = ?, bo_content = ?, bo_inputdate = now() ");
@@ -78,8 +69,7 @@ public class BoardMapper {
 		PreparedStatement stmt = null;
 
 		try{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection(url, user, password);
+			conn = DBUtil.getConnection();
 			
 
 			stmt = conn.prepareStatement(sql);
@@ -97,20 +87,12 @@ public class BoardMapper {
 		} catch (Exception e){
 			
 		} finally {
-			try{
-				if(stmt != null) stmt.close();
-				if(conn != null) conn.close();
-			} catch(Exception e) {
-				
-			} 
+			DBUtil.seClose(null, stmt, conn);
 		}
 	}
 	
 	public List<BoardVO> readWithPaging(PagingDTO dto){
-		String url = "jdbc:mysql://localhost:3306/bigdata?serverTimezone=Asia/Seoul";
-		String user = "root"; 
-		String password = "bigdata";
-
+		
 
 		StringBuffer qry = new StringBuffer();
 		qry.append(" SELECT * FROM big_board ORDER BY bo_num DESC LIMIT " + dto.startPage() + ", " + dto.getPageRow());
@@ -121,8 +103,7 @@ public class BoardMapper {
 		ResultSet rs = null;
 		List<BoardVO> list = new ArrayList<>();
 		try{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection(url, user, password);
+			conn = DBUtil.getConnection();
 			
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
@@ -144,13 +125,7 @@ public class BoardMapper {
 		} catch(Exception e){
 			
 		} finally {
-			try{
-				if(rs != null) rs.close();
-				if(stmt != null) stmt.close();
-				if(conn != null) conn.close();
-			} catch(Exception e) {
-				
-			} 
+			DBUtil.seClose(null, stmt, conn);
 		}
 		return list;		
 	}
@@ -158,9 +133,6 @@ public class BoardMapper {
 	 * 전체 행수
 	 */
 	public int totalCnt() {
-		String url = "jdbc:mysql://localhost:3306/bigdata?serverTimezone=UTC";
-		String user = "root"; 
-		String password = "bigdata";
 		
 		StringBuffer qry = new StringBuffer();
 		qry.append(" SELECT count(*) as cnt FROM big_board  ");
@@ -172,8 +144,7 @@ public class BoardMapper {
 		
 		int total = 0;
 		try{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection(url, user, password);
+			conn = DBUtil.getConnection();
 			
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
@@ -184,15 +155,91 @@ public class BoardMapper {
 		} catch(Exception e){
 			
 		} finally {
-			try{
-				if(rs != null) rs.close();
-				if(stmt != null) stmt.close();
-				if(conn != null) conn.close();
-			} catch(Exception e) {
-				
-			} 
+			DBUtil.seClose(null, stmt, conn);
 		}
 		
 		return total;
+	}
+	
+	public BoardVO read(int bo_num){
+		
+		StringBuffer qry = new StringBuffer();
+		qry.append(" SELECT * FROM big_board WHERE bo_num = ? ");
+		String sql = qry.toString();
+
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		BoardVO board =null;
+		
+		try{
+			conn = DBUtil.getConnection();
+			
+			stmt = conn.prepareStatement(sql);
+			
+			stmt.setInt(1, bo_num);
+			rs = stmt.executeQuery();
+						
+			if(rs.next()){
+				board = new BoardVO();
+				board.setBo_num(rs.getInt("bo_num"));
+				board.setBo_category(rs.getString("bo_category"));
+				board.setBo_title(rs.getString("bo_title"));
+				board.setBo_content(rs.getString("bo_content"));
+				board.setBo_mb_id(rs.getString("bo_mb_id"));
+				board.setBo_mb_name(rs.getString("bo_mb_name"));
+				board.setBo_hit(rs.getInt("bo_hit"));
+				board.setBo_inputdate(rs.getDate("bo_inputdate"));
+				board.setBo_ip(rs.getString("bo_ip"));
+				
+			}
+		} catch(Exception e){
+			
+		} finally {
+			DBUtil.seClose(null, stmt, conn);
+		}
+		return board;	
+	}
+	
+	public BoardVO readModify(int bo_num){
+		
+
+
+		StringBuffer qry = new StringBuffer();
+		qry.append(" SELECT * FROM big_board WHERE bo_num = ? ");
+		String sql = qry.toString();
+
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		BoardVO board =null;
+		
+		try{
+			conn = DBUtil.getConnection();
+			
+			stmt = conn.prepareStatement(sql);
+			
+			stmt.setInt(1, bo_num);
+			rs = stmt.executeQuery();
+						
+			if(rs.next()){
+				board = new BoardVO();
+				board.setBo_num(rs.getInt("bo_num"));
+				board.setBo_category(rs.getString("bo_category"));
+				board.setBo_title(rs.getString("bo_title"));
+				board.setBo_content(rs.getString("bo_content"));
+				board.setBo_mb_id(rs.getString("bo_mb_id"));
+				board.setBo_mb_name(rs.getString("bo_mb_name"));
+				board.setBo_hit(rs.getInt("bo_hit"));
+				board.setBo_inputdate(rs.getDate("bo_inputdate"));
+				board.setBo_ip(rs.getString("bo_ip"));
+				
+			}
+		} catch(Exception e){
+			
+		} finally {
+			DBUtil.seClose(null, stmt, conn);
+		}
+		return board;	
 	}
 }

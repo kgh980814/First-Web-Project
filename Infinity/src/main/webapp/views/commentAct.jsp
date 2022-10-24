@@ -1,23 +1,23 @@
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true" %>
 <%request.setCharacterEncoding("UTF-8"); %>
 <%response.setContentType("text/html; charset=UTF-8"); %>
-<% %>
 <% 
 String url = "jdbc:mysql://localhost:3306/bigdata?serverTimezone=Asia/Seoul";
 String user = "root"; 
 String password = "bigdata";
 
 StringBuffer qry = new StringBuffer();
-qry.append(" UPDATE  big_board SET bo_category = ?,bo_title = ?, bo_content= ?, bo_inputdate = now() ");
-qry.append(" WHERE   bo_num = ? ");
+qry.append(" INSERT INTO big_comment (com_num,com_refNum,com_content, ");
+qry.append(" com_mb_id,com_mb_name,com_inputDate) ");
+qry.append(" VALUES (null, ?, ?, ?, ?, now()) ");
+
+
 String sql = qry.toString();//sql을 문자열로
 
 Connection con = null;
 PreparedStatement stmt = null;
-String ajaxMessage = "Fail";
 try{
 	Class.forName("com.mysql.cj.jdbc.Driver");
 	con = DriverManager.getConnection(url, user, password);
@@ -25,15 +25,12 @@ try{
 	//해킹방지
 	stmt = con.prepareStatement(sql);
 	//?에 해당하는 값 삽입 
-	stmt.setString(1,request.getParameter("bo_category"));
-	stmt.setString(2,request.getParameter("bo_title"));
-	stmt.setString(3,request.getParameter("bo_content"));
-	stmt.setInt(4,Integer.parseInt(request.getParameter("bo_num")));
+	stmt.setString(1,request.getParameter("com_refNum"));
+	stmt.setString(2,request.getParameter("com_content"));
+	stmt.setString(3,(String)session.getAttribute("sess_id"));
+	stmt.setString(4,(String)session.getAttribute("sess_name"));
 
-	int res = stmt.executeUpdate();//insert문 실행
-	if(res > 0){
-		ajaxMessage = "Success";
-	}
+	stmt.executeUpdate();//insert문 실행
 }catch(Exception e){
 	
 }finally{
@@ -44,5 +41,7 @@ try{
 		
 	} 
 }
-out.print(ajaxMessage);
+%>
+<%
+response.sendRedirect("view.jsp?bo_num="+request.getParameter("com_refNum"));
 %>

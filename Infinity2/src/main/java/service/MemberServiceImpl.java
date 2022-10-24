@@ -26,5 +26,11 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.readOut(keyword);
 	}
 
+	@Override
+	public MemberVO read(String mb_id) {
+		MemberMapper mapper = new MemberMapper();
+		return mapper.read(mb_id);
+	}
+
 	
 }

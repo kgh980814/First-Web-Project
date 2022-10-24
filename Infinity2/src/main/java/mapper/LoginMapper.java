@@ -2,16 +2,13 @@ package mapper;
 
 import java.sql.*;
 
+import common.DBUtil;
 import model.MemberVO;
 
 public class LoginMapper {
 
 	public MemberVO read(MemberVO vo) {
 		
-		String url = "jdbc:mysql://localhost:3306/bigdata?serverTimezone=Asia/Seoul";
-		String user = "root"; 
-		String password = "bigdata";
-
 		StringBuffer qry = new StringBuffer();
 		qry.append(" SELECT * FROM big_member WHERE mb_out = 'N' AND mb_id = ? AND mb_pw = ? ");
 		String sql = qry.toString();
@@ -22,8 +19,7 @@ public class LoginMapper {
 		MemberVO member = null;
 
 		try{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection(url, user, password);
+			conn = DBUtil.getConnection();
 			
 			stmt = conn.prepareStatement(sql);
 
@@ -41,13 +37,7 @@ public class LoginMapper {
 		} catch(Exception e) {
 			
 		} finally {
-			try{
-				if(rs != null) rs.close();
-				if(stmt != null) stmt.close();
-				if(conn != null) conn.close();
-			} catch(Exception e) {
-				
-			} 
+			DBUtil.seClose(null, stmt, conn);
 		}
 
 	

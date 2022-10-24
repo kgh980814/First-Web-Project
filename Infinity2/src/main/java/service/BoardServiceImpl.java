@@ -31,4 +31,16 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.totalCnt();
 	}
 
+	@Override
+	public BoardVO read(int bo_num) {
+		BoardMapper mapper = new BoardMapper();
+		return mapper.read(bo_num);
+	}
+
+	@Override
+	public BoardVO readModify(int bo_num) {
+		BoardMapper mapper = new BoardMapper();
+		return mapper.read(bo_num);
+	}
+
 }

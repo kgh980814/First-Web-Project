@@ -16,4 +16,7 @@ public interface BoardService {
 
 	public int totalCnt();
 	
+	public BoardVO read(int bo_num);
+	
+	public BoardVO readModify(int bo_num);
 }

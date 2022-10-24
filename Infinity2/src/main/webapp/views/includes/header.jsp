@@ -172,7 +172,7 @@ if((sess_id == null || "".equals(sess_id))){
     <div class="media">
       <div class="media-left">
         <div class="avatar avatar-md avatar-circle">
-          <a href="javascript:void(0)"><img class="img-responsive" src="../assets/images/221.jpg" alt="avatar"/></a>
+          <a href="javascript:void(0)"><img class="img-responsive" src="../assets/images/man-icon.png" alt="avatar"/></a>
         </div><!-- .avatar -->
       </div>
       <div class="media-body">
@@ -247,8 +247,8 @@ if((sess_id == null || "".equals(sess_id))){
         
             <li class="has-submenu">
           <a href="javascript:void(0)" class="submenu-toggle">
-            <i class="menu-icon  fa fa-comments zmdi-hc-lg"></i>
-            <span class="menu-text">페이지</span>
+            <i class="menu-icon  fa fa-plus-circle zmdi-hc-lg"></i>
+            <span class="menu-text">플래너</span>
             <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
           </a>
           <ul class="submenu">

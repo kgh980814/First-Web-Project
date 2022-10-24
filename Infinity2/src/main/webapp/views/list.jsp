@@ -52,7 +52,7 @@ while(it.hasNext()){
 	BoardVO data = it.next();
 %>
 							<tr>
-								<td><%=rowNum--%>.<a href="?bo_num=<%=data.getBo_num()%>"><%=data.getBo_title()%></a></td>
+								<td><%=rowNum--%>.<a href="View?bo_num=<%=data.getBo_num()%>"><%=data.getBo_title()%></a></td>
 								<td align="right"><%=data.getBo_inputdate() %></td>
 							</tr>
 <%

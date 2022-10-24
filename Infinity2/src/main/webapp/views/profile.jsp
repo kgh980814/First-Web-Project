@@ -1,50 +1,10 @@
+<%@page import="model.MemberVO"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%--  <%=session.getAttribute("sess_id") %> --%>
 <%
-String mb_name = "";
-
-String url = "jdbc:mysql://localhost:3306/bigdata?serverTimezone=UTC";
-String user = "root";
-String password = "bigdata";
-
-StringBuffer qry = new StringBuffer();
-qry.append(" SELECT * FROM big_member WHERE mb_id = ?");
-String sql = qry.toString();
-
-Connection con = null;
-PreparedStatement stmt = null;
-ResultSet rs = null;
-
-try {
-	//JDBC 드라이버 로드 및 연결
-	Class.forName("com.mysql.cj.jdbc.Driver");
-	con = DriverManager.getConnection(url, user, password);
-
-	stmt = con.prepareStatement(sql);
-	stmt.setString(1,(String)session.getAttribute("sess_id"));
-	rs = stmt.executeQuery();
-
-	if (rs.next()) {
-		mb_name = rs.getString("mb_name");
-	} else {
-		response.sendRedirect("login.jsp");
-	}
-} catch (Exception e) {
-
-} finally {
-	try {
-		if (rs != null)
-	rs.close();
-		if (stmt != null)
-	stmt.close();
-		if (con != null)
-	con.close();
-	} catch (Exception e) {
-
-	}
-}
+MemberVO member =(MemberVO)request.getAttribute("profile");
 %>
 <%@ include file="includes/header.jsp"%>
 <style>
@@ -62,7 +22,7 @@ try {
 				<div>
 					<div class="avatar avatar-xl avatar-circle">
 						<a href="javascript:void(0)"> <img class="img-responsive"
-							src="../assets/images/221.jpg" alt="avatar" />
+							src="../assets/images/man-icon.png" alt="avatar" />
 						</a>
 					</div>
 					<!-- .avatar -->
@@ -73,7 +33,7 @@ try {
 			</div>
 			<div class="text-center">
 				<h4 class="profile-info-name m-b-lg">
-					<a href="javascript:void(0)" class="title-color"><%=mb_name %></a>
+					<a href="javascript:void(0)" class="title-color"><%=member.getMb_name() %></a>
 				</h4>
 				<div>
 					<a href="javascript:void(0)" class="m-r-xl theme-color"><i
