@@ -31,7 +31,7 @@ public class PagingDTO {
 	public int getTotalPage() {
 		if(this.total % this.pageRow == 0){
 			this.totalPage = this.total/this.pageRow;
-		}else{
+		} else {
 			this.totalPage = (this.total/this.pageRow)+1;
 		}
 		return this.totalPage;

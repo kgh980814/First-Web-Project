@@ -40,7 +40,7 @@ public class MemberOutListController extends HttpServlet {
 		
 		request.setAttribute("list", list);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("views/memberOutlist.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("views/memberOutList.jsp");
 		dispatcher.forward(request, response);
 	}
 

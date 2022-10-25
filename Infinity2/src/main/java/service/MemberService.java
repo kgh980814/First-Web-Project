@@ -13,4 +13,5 @@ public interface MemberService {
 	public List<MemberVO> readOut(String keyword);
 	
 	public MemberVO read(String mb_id);
+	
 }

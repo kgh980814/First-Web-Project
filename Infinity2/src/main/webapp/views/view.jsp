@@ -1,109 +1,128 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="model.CommentVO"%>
+<%@page import="java.util.List"%>
 <%@page import="model.BoardVO"%>
-<%@page import="java.util.*"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%
- BoardVO view = (BoardVO)request.getAttribute("view");
- %>
-<%@ include file="includes/header.jsp"%>
+<%
+BoardVO view = (BoardVO) request.getAttribute("view");
+List<CommentVO> list = (List<CommentVO>) request.getAttribute("list");
+%>
+<%@ include file="includes/header.jsp" %>
 
-    <div class="wrap">
+			<div class="wrap">
 				<div class="widget">
 					<header class="widget-header">
-						<h4 class="widget-title">글 상세보기</h4>
+						<h4 class="widget-title">글내용보기</h4>
 					</header><!-- .widget-header -->
 					<hr class="widget-separator">
 					<div class="widget-body">
 						<div class="m-b-lg">
 							<small>
-							<!-- 설명 -->
+								<!-- 설명 -->
 							</small>
 						</div>
-						<form class="form-horizontal" >
+						<form class="form-horizontal">
 							<div class="form-group">
 								<label for="exampleTextInput1" class="col-sm-2 control-label">제목:</label>
-								<div class="col-sm-10">
-							<%=view.getBo_title()%>
+								<div class="col-sm-9">
+									<%=view.getBo_title() %>
 								</div>
 							</div>
-						<div class="form-group">
+							<div class="form-group">
 								<label for="exampleTextInput1" class="col-sm-2 control-label">작성자:</label>
-								<div class="col-sm-10">
-							<%=view.getBo_mb_name()%>
+								<div class="col-sm-9">
+									<%=view.getBo_mb_name() %>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="textarea1" class="col-sm-2 control-label">내용:</label>
-								<div class="col-sm-10">
-							<%=view.getBo_content().replace("\r\n", "<br>")%>
+								<div class="col-sm-9">
+									<%=view.getBo_content().replace("\r\n", "<br>") %>
 								</div>
 							</div>
-								<div class="form-group">
+							<div class="form-group">
 								<label for="exampleTextInput1" class="col-sm-2 control-label">작성일:</label>
-								<div class="col-sm-10">
-							<%=view.getBo_inputdate()%>
+								<div class="col-sm-9">
+									<%=view.getBo_inputdate() %>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-sm-4 col-sm-offset-8">
+								<div class="col-sm-7"> 
+								</div>
+								<div class="col-sm-5">
 								<%
-								if(sess_id.equals(view.getBo_mb_id())){
+									if(sess_id.equals(view.getBo_mb_id())){
 								%>
-									<a href="Modify?bo_num=<%=view.getBo_num()%>" class="btn btn-success">글수정</a>
+									<a href="Modify?bo_num=<%=view.getBo_num() %>" class="btn btn-success">글수정</a>
 									<a href="javascript:void(0);" class="btn btn-success" onclick="del()">글삭제</a>
-									<%
+								<%
 									}
-									%>
-									<a href="List" class="btn btn-success">글목록</a>
+								%>
+									<a href="list.jsp" class="btn btn-success">글목록</a>
 								</div>
 							</div>
 						</form>
-				
-					</div><!-- .widget-body -->
-					
-				</div><!-- .widget -->
-			</div><!-- END column -->
-<div class="wrap">
-				<div class="widget">
-					<header class="widget-header">
-						<h4 class="widget-title">댓글</h4>
-					</header><!-- .widget-header -->
-					<hr class="widget-separator">
-					<div class="widget-body">
-						<div class="m-b-lg">
-							<small>
-							<!-- 설명 -->
-							</small>
+						
+						<!-- 댓글 시작 -->
+						<div>
+							<h4 class="widget-title">댓글</h4>
+							<form method="post" action="">
+							<input type="hidden" name="com_refnum" value="<%=view.getBo_num() %>">
+								<div class="form-group">
+									<input type="text" name="com_content" id="com_content" class="form-control" required="required">
+									<div style="text-align:right;">
+										<button id="btn_comment" class="btn btn-default">입력</button>
+									</div>
+								</div>
+							</form>
 						</div>
-						<form class="form-horizontal" >
-									<div class="form-group">
-								<label for="textarea1" class="col-sm-2 control-label">내용:</label>
-								<div class="col-sm-10">
-									<textarea class="form-control"  name="bo_content" id="bo_content" placeholder="내용을 입력하세요"><%=view.getBo_content()%></textarea>
-								</div>
+						
+						<!-- 댓글목록 -->
+						<div id="commentList">
+					<%
+int rownum = 0;
+Iterator<CommentVO> it = list.iterator();
+while(it.hasNext()){
+	CommentVO data = it.next();
+%>							
+							<div>
+								<div><%=data.getCom_mb_name() %> <%=data.getCom_inputdate() %></div>
+								<div><%=data.getCom_content() %></div>
 							</div>
-							<div class="row">
-								<div class="col-sm-2 col-sm-offset-10">
-									<a href="View?bo_num=<%=view.getBo_num()%>" class="btn btn-success">댓글 작성</a>
-								</div>
+							<hr>
+<%
+rownum++;
+}
+
+if(rownum == 0){
+%>							
+							<div>
+								<div>등록된 댓글이 없습니다.</div>
 							</div>
-						</form>
-				
+<%
+}
+%>		
+						</div>
+						<!-- 댓글목록 끝-->
+						
+						<!-- 댓글 끝 -->
 					</div><!-- .widget-body -->
-					
 				</div><!-- .widget -->
 			</div><!-- END column -->
 <form id="sendfrm" method="post" action="deleteAct.jsp">
-<input type ="hidden" name="bo_num" value="<%=view.getBo_num()%>">
+<input type="hidden" name="bo_num" value="<%=view.getBo_num() %>">
 </form>
 <script>
 function del(){
-	if(confirm("정말로 삭제 하시겠습니까?")){
+	if(confirm("정말로 삭제하시겠습니까????")){
 		document.getElementById('sendfrm').submit();
 	}
-	console.log("삭제 버튼이 눌렸네요.");
 }
-</script>			
-		
-<%@ include file="includes/footer.jsp"%>
+</script>		
+<%@ include file="includes/footer.jsp" %>
+
+
+

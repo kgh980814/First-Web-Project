@@ -1,3 +1,4 @@
+<%@page import="org.json.simple.JSONObject"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -47,10 +48,16 @@ try{
 }
 
 
-out.print("<div>");
+/* out.print("<div>");
 out.print("<div>"+session.getAttribute("sess_name")+"</div>");
 out.print("<div>"+request.getParameter("com_content")+"</div>");
 out.print("</div>");
-out.print("<hr>");
-out.print(ajaxMessage);
+out.print("<hr>"); */
+//out.print(ajaxMessage);
+//원래는 json데이터로 보내야함.
+//{"res" : "Success","sql" :""}<-json데이터 출력방법
+JSONObject obj = new JSONObject();//객체 생성//{}만들기
+obj.put("res", ajaxMessage);//{"res" : "Success"}
+obj.put("sql", sql);//"sql" :"INSERT 문"}
+out.print(obj);
 %>

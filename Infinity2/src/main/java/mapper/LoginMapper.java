@@ -37,7 +37,7 @@ public class LoginMapper {
 		} catch(Exception e) {
 			
 		} finally {
-			DBUtil.seClose(null, stmt, conn);
+			DBUtil.setClose(rs, stmt, conn);
 		}
 
 	

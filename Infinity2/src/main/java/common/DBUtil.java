@@ -47,7 +47,7 @@ public class DBUtil {
 	 * DB연결 해제
 	 *
 	 */
-	public static void seClose(ResultSet rs, Statement stmt, Connection conn) {
+	public static void setClose(ResultSet rs, Statement stmt, Connection conn) {
 		try {
 			if (rs != null) rs.close();
 			if (stmt != null) stmt.close();

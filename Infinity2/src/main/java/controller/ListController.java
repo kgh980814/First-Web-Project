@@ -41,14 +41,15 @@ public class ListController extends HttpServlet {
 		if(!(param == null || "".equals(param))){
 			paging.setP(Integer.parseInt(param));
 		}
-		
-		
+				
 		BoardServiceImpl service = new BoardServiceImpl();
+		//글목록
 		List<BoardVO> list = service.readWithPaging(paging);
-		int total =service.totalCnt();
+		//전체글수
+		int total = service.totalCnt();
 
 		paging.setTotal(total);
-		
+
 		request.setAttribute("list", list);
 		request.setAttribute("paging", paging);
 		
@@ -60,7 +61,7 @@ public class ListController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		
 	}
 
 }

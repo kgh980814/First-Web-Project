@@ -35,12 +35,19 @@ function delItem(t){
 	let len =$('#crew tr').length;
 	if(len > 2){
 		$(t).parent().parent().remove();
+		let html = "";
+ 		html += '<button type="button" id=""class="btn btn-default" onclick="addItem(this)">+</button>';
+		html += '<button type="button" id="" class="btn btn-default" onclick="delItem(this)">-</button>';
+		//console.log(len);
+		$("#crew > tbody > tr:nth-child("+(len-1)+") > td:nth-child(4)").append(html); 
 	}
 }
 function addItem(t){
 	
 	
+	$(t).parent().empty();
 	let len = $('#crew tr').length;
+	
 	console.log(len);
 	
 	let html = "";

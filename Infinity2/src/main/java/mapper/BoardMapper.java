@@ -14,11 +14,7 @@ public class BoardMapper {
 	 * 게시글등록 
 	 */
 	public void create(BoardVO vo) {
-		
-
 		//회원가입후 로그인페이지로 이동.
-
-
 		StringBuffer qry = new StringBuffer();
 		qry.append(" INSERT INTO big_board (bo_num, bo_category, bo_title,  ");
 		qry.append(" bo_content, bo_mb_id, bo_mb_name, bo_hit, bo_inputdate, bo_ip) ");
@@ -47,7 +43,7 @@ public class BoardMapper {
 		} catch (Exception e){
 			
 		} finally {
-			DBUtil.seClose(null, stmt, conn);
+			DBUtil.setClose(null, stmt, conn);
 		}
 	}
 	
@@ -58,8 +54,6 @@ public class BoardMapper {
 	public void update(BoardVO vo) {
 
 		//회원가입후 로그인페이지로 이동.
-		
-
 		StringBuffer qry = new StringBuffer();
 		qry.append(" UPDATE big_board SET bo_category = ?, bo_title = ?, bo_content = ?, bo_inputdate = now() ");
 		qry.append(" WHERE bo_num = ? ");
@@ -87,13 +81,12 @@ public class BoardMapper {
 		} catch (Exception e){
 			
 		} finally {
-			DBUtil.seClose(null, stmt, conn);
+			DBUtil.setClose(null, stmt, conn);
 		}
 	}
 	
 	public List<BoardVO> readWithPaging(PagingDTO dto){
 		
-
 		StringBuffer qry = new StringBuffer();
 		qry.append(" SELECT * FROM big_board ORDER BY bo_num DESC LIMIT " + dto.startPage() + ", " + dto.getPageRow());
 		String sql = qry.toString();
@@ -125,23 +118,106 @@ public class BoardMapper {
 		} catch(Exception e){
 			
 		} finally {
-			DBUtil.seClose(null, stmt, conn);
+			DBUtil.setClose(rs, stmt, conn);
 		}
 		return list;		
 	}
-	/*
-	 * 전체 행수
-	 */
-	public int totalCnt() {
+	
+	public BoardVO read(int bo_num){
 		
 		StringBuffer qry = new StringBuffer();
-		qry.append(" SELECT count(*) as cnt FROM big_board  ");
+		qry.append(" SELECT * FROM big_board WHERE bo_num = ? ");
 		String sql = qry.toString();
 
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		BoardVO board = null;
 		
+		try{
+			conn = DBUtil.getConnection();
+			
+			stmt = conn.prepareStatement(sql);
+			
+			stmt.setInt(1, bo_num);
+			
+			rs = stmt.executeQuery();
+						
+			if(rs.next()){
+				board = new BoardVO();
+				board.setBo_num(rs.getInt("bo_num"));
+				board.setBo_category(rs.getString("bo_category"));
+				board.setBo_title(rs.getString("bo_title"));
+				board.setBo_content(rs.getString("bo_content"));
+				board.setBo_mb_id(rs.getString("bo_mb_id"));
+				board.setBo_mb_name(rs.getString("bo_mb_name"));
+				board.setBo_hit(rs.getInt("bo_hit"));
+				board.setBo_inputdate(rs.getDate("bo_inputdate"));
+				board.setBo_ip(rs.getString("bo_ip"));
+				
+			}
+		} catch(Exception e){
+			
+		} finally {
+			DBUtil.setClose(rs, stmt, conn);
+		}
+		return board;		
+	}
+	
+	public BoardVO readModify(int bo_num){
+		
+		StringBuffer qry = new StringBuffer();
+		qry.append(" SELECT * FROM big_board WHERE bo_num = ? ");
+		String sql = qry.toString();
+
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		BoardVO board = null;
+		
+		try{
+			conn = DBUtil.getConnection();
+			
+			stmt = conn.prepareStatement(sql);
+			
+			stmt.setInt(1, bo_num);
+			
+			rs = stmt.executeQuery();
+						
+			if(rs.next()){
+				board = new BoardVO();
+				board.setBo_num(rs.getInt("bo_num"));
+				board.setBo_category(rs.getString("bo_category"));
+				board.setBo_title(rs.getString("bo_title"));
+				board.setBo_content(rs.getString("bo_content"));
+				board.setBo_mb_id(rs.getString("bo_mb_id"));
+				board.setBo_mb_name(rs.getString("bo_mb_name"));
+				board.setBo_hit(rs.getInt("bo_hit"));
+				board.setBo_inputdate(rs.getDate("bo_inputdate"));
+				board.setBo_ip(rs.getString("bo_ip"));
+				
+			}
+		} catch(Exception e){
+			
+		} finally {
+			DBUtil.setClose(rs, stmt, conn);
+		}
+		return board;		
+	}
+	
+	/**
+	 * 전체 행수
+	 */
+	public int totalCnt() {
+		
+		StringBuffer qry = new StringBuffer();
+		qry.append(" SELECT count(*) as cnt FROM big_board ");
+		String sql = qry.toString();
+
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
 		int total = 0;
 		try{
 			conn = DBUtil.getConnection();
@@ -155,91 +231,10 @@ public class BoardMapper {
 		} catch(Exception e){
 			
 		} finally {
-			DBUtil.seClose(null, stmt, conn);
+			DBUtil.setClose(rs, stmt, conn);
 		}
-		
-		return total;
+
+		return total;		
 	}
 	
-	public BoardVO read(int bo_num){
-		
-		StringBuffer qry = new StringBuffer();
-		qry.append(" SELECT * FROM big_board WHERE bo_num = ? ");
-		String sql = qry.toString();
-
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		BoardVO board =null;
-		
-		try{
-			conn = DBUtil.getConnection();
-			
-			stmt = conn.prepareStatement(sql);
-			
-			stmt.setInt(1, bo_num);
-			rs = stmt.executeQuery();
-						
-			if(rs.next()){
-				board = new BoardVO();
-				board.setBo_num(rs.getInt("bo_num"));
-				board.setBo_category(rs.getString("bo_category"));
-				board.setBo_title(rs.getString("bo_title"));
-				board.setBo_content(rs.getString("bo_content"));
-				board.setBo_mb_id(rs.getString("bo_mb_id"));
-				board.setBo_mb_name(rs.getString("bo_mb_name"));
-				board.setBo_hit(rs.getInt("bo_hit"));
-				board.setBo_inputdate(rs.getDate("bo_inputdate"));
-				board.setBo_ip(rs.getString("bo_ip"));
-				
-			}
-		} catch(Exception e){
-			
-		} finally {
-			DBUtil.seClose(null, stmt, conn);
-		}
-		return board;	
-	}
-	
-	public BoardVO readModify(int bo_num){
-		
-
-
-		StringBuffer qry = new StringBuffer();
-		qry.append(" SELECT * FROM big_board WHERE bo_num = ? ");
-		String sql = qry.toString();
-
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		BoardVO board =null;
-		
-		try{
-			conn = DBUtil.getConnection();
-			
-			stmt = conn.prepareStatement(sql);
-			
-			stmt.setInt(1, bo_num);
-			rs = stmt.executeQuery();
-						
-			if(rs.next()){
-				board = new BoardVO();
-				board.setBo_num(rs.getInt("bo_num"));
-				board.setBo_category(rs.getString("bo_category"));
-				board.setBo_title(rs.getString("bo_title"));
-				board.setBo_content(rs.getString("bo_content"));
-				board.setBo_mb_id(rs.getString("bo_mb_id"));
-				board.setBo_mb_name(rs.getString("bo_mb_name"));
-				board.setBo_hit(rs.getInt("bo_hit"));
-				board.setBo_inputdate(rs.getDate("bo_inputdate"));
-				board.setBo_ip(rs.getString("bo_ip"));
-				
-			}
-		} catch(Exception e){
-			
-		} finally {
-			DBUtil.seClose(null, stmt, conn);
-		}
-		return board;	
-	}
 }

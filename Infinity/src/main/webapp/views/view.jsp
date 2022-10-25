@@ -199,13 +199,21 @@ $(document).ready(function(){
 		        		com_content : com_content},// Json 형식의 데이터이다.
 		        		success : function(res){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
 		            // 응답코드 > 0000
-		            console.log("["+res+"]");
-		            $("#commentList:last").append(res);
-		           /*  if(res=='Success'){
+		            
+/*
+{
+"res": "Success",
+"sql": " INSERT INTO big_comment (com_num,com_refNum,com_content,  com_mb_id,com_mb_name,com_inputDate)  VALUES (null, ?, ?, ?, ?, now()) "
+ }		           
+*/
+					let jsonData = JSON.parse(res);
+		            console.log("["+jsonData.sql+"]");
+		            //$("#commentList:last").append(res);
+		             if(jsonData.res == 'Success'){
 		            	location.reload();
 		            }else{	
 		            	alert("등록 실패");
-		            } */
+		            } 
 		            //console.log("["+res+"]");
 		        },
 		        error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.

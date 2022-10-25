@@ -15,10 +15,7 @@ public class MemberMapper {
 
 	
 	public void create(MemberVO vo) {
-		
 		//JDBC 프로그래밍
-
-
 		StringBuffer qry = new StringBuffer();
 		qry.append(" INSERT INTO big_member (mb_id, mb_pw, mb_name, mb_email,  ");
 		qry.append(" mb_zipcode, mb_addr, mb_detailAddr, mb_phone, mb_birth, mb_gender, mb_joindate) ");
@@ -29,9 +26,9 @@ public class MemberMapper {
 		int idx = 1;
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		
 
 		try{
+			
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
 			//?에 값넣기
@@ -55,7 +52,7 @@ public class MemberMapper {
 		} catch (Exception e){
 			e.getLocalizedMessage();
 		} finally {
-			DBUtil.seClose(null, stmt, conn);
+			DBUtil.setClose(null, stmt, conn);
 		}
 	}
 
@@ -71,7 +68,6 @@ public class MemberMapper {
 
 		List<MemberVO> list = new ArrayList<>();
 		try{
-			
 			conn = DBUtil.getConnection();
 			
 			stmt = conn.prepareStatement(sql);
@@ -93,7 +89,7 @@ public class MemberMapper {
 		} catch (Exception e){
 			
 		} finally {
-			DBUtil.seClose(null, stmt, conn);
+			DBUtil.setClose(rs, stmt, conn);
 		}
 		
 		return list;		
@@ -101,7 +97,6 @@ public class MemberMapper {
 
 	public List<MemberVO> readOut(String keyword){
 
-		
 		StringBuffer qry = new StringBuffer();
 		qry.append(" SELECT * FROM big_member WHERE NOT mb_out = 'N' ");
 		
@@ -118,12 +113,10 @@ public class MemberMapper {
 
 		List<MemberVO> list = new ArrayList<>();
 		try{
-			
-			conn =DBUtil.getConnection();
+			conn = DBUtil.getConnection();
 			
 			stmt = conn.prepareStatement(sql);
-			
-			
+						
 			if(keyword != null || "".equals(keyword)){ 
 				stmt.setString(1, "%"+keyword+"%"); 
 				stmt.setString(2, "%"+keyword+"%"); 
@@ -149,38 +142,33 @@ public class MemberMapper {
 		} catch (Exception e){
 			
 		} finally {
-			DBUtil.seClose(null, stmt, conn);
+			DBUtil.setClose(rs, stmt, conn);
 		}
 		return list;		
 	}
-	/*
-	 * 회원정보 가지고오기
+	
+	/**
+	 * 회원정보 가지고 오기
+	 * @param mb_id
+	 * @return
 	 */
 	public MemberVO read(String mb_id){
-		
-		DBUtil.getConnection();//다른 클래스의 DB와 연결할때 
-		
-
 
 		StringBuffer qry = new StringBuffer();
 		qry.append(" SELECT * FROM big_member WHERE mb_id = ? ");
-		
-		
-		qry.append(" ORDER BY mb_joindate DESC ");
 		String sql = qry.toString();
 
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-
-		MemberVO member= null;
+		MemberVO member = null;
 		try{
-			conn =DBUtil.getConnection();
+			conn = DBUtil.getConnection();
 			
 			stmt = conn.prepareStatement(sql);
-			
+						
 			stmt.setString(1, mb_id);
-			
+						
 			rs = stmt.executeQuery();
 			if(rs.next()){
 				member = new MemberVO();
@@ -193,12 +181,11 @@ public class MemberMapper {
 				member.setMb_gender(rs.getString("mb_gender"));
 				member.setMb_joindate(rs.getDate("mb_joindate"));
 				
-
 			}
 		} catch (Exception e){
 			
 		} finally {
-			DBUtil.seClose(null, stmt, conn);
+			DBUtil.setClose(rs, stmt, conn);
 		}
 		return member;		
 	}
