@@ -26,5 +26,10 @@ public class TradingVO {
 	public void setTra_inputdate(Date tra_inputdate) {
 		this.tra_inputdate = tra_inputdate;
 	}
+	@Override
+	public String toString() {
+		return "TradingVO [tra_num=" + tra_num + ", tra_account=" + tra_account + ", tra_inputdate=" + tra_inputdate
+				+ "]";
+	}
 	
 }

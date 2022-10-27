@@ -5,7 +5,7 @@ import java.util.Date;
 public class TradingDetailVO {
 	
 	private int trad_num;
-	private int rad_refnum;
+	private int trad_refnum;
 	private Date trad_tradingDate;
 	private String trad_subject;
 	private String trad_standard;
@@ -20,11 +20,11 @@ public class TradingDetailVO {
 	public void setTrad_num(int trad_num) {
 		this.trad_num = trad_num;
 	}
-	public int getRad_refnum() {
-		return rad_refnum;
+	public int getTrad_refnum() {
+		return trad_refnum;
 	}
-	public void setRad_refnum(int rad_refnum) {
-		this.rad_refnum = rad_refnum;
+	public void setTrad_refnum(int trad_refnum) {
+		this.trad_refnum = trad_refnum;
 	}
 	public Date getTrad_tradingDate() {
 		return trad_tradingDate;
@@ -76,7 +76,7 @@ public class TradingDetailVO {
 	}
 	@Override
 	public String toString() {
-		return "TradingDetailVO [trad_num=" + trad_num + ", rad_refnum=" + rad_refnum + ", trad_tradingDate="
+		return "TradingDetailVO [trad_num=" + trad_num + ", trad_refnum=" + trad_refnum + ", trad_tradingDate="
 				+ trad_tradingDate + ", trad_subject=" + trad_subject + ", trad_standard=" + trad_standard
 				+ ", trad_quantity=" + trad_quantity + ", trad_unitPrice=" + trad_unitPrice + ", trad_supplyPrice="
 				+ trad_supplyPrice + ", trad_taxAmount=" + trad_taxAmount + ", trad_ect=" + trad_ect + "]";

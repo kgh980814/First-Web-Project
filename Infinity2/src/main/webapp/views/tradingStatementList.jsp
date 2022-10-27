@@ -1,3 +1,4 @@
+<%@page import="model.TradingVO"%>
 <%@page import="model.PagingDTO"%>
 <%@page import="model.BoardVO"%>
 <%@page import="java.util.*"%>
@@ -7,8 +8,8 @@
 
 <%@ include file="includes/header.jsp"%>
 <%
-List<BoardVO> list = (List<BoardVO>)request.getAttribute("list");
-PagingDTO paging =(PagingDTO)request.getAttribute("paging");
+List<TradingVO> list = (List<TradingVO>)request.getAttribute("list");
+PagingDTO paging =(PagingDTO)request.getAttribute("paging"); 
 %>
  <style>
  .wrap {
@@ -19,7 +20,7 @@ PagingDTO paging =(PagingDTO)request.getAttribute("paging");
 	<section class="app-content">
 		<div class="row">
 				<div class="col-md-12">
-				<%=paging.getP()%>/<%=paging.getTotalPage()%>
+				<%//=paging.getP()%>/<%//=paging.getTotalPage()%>
 					<div class="mail-toolbar m-b-lg pull-right">
 					
 						<div class="btn-group"  id="btn_group"role="group">
@@ -30,7 +31,7 @@ PagingDTO paging =(PagingDTO)request.getAttribute("paging");
 						</div>								
 					
 						<div class="btn-group " role="group">
-							<a href="Write" class="btn btn-default">글쓰기</a>
+							<a href="TradingWrite" class="btn btn-default">등록</a>
 						</div>
 
 
@@ -39,7 +40,7 @@ PagingDTO paging =(PagingDTO)request.getAttribute("paging");
 		</div>
 			<div class="col-md-12">
 				<div class="widget p-lg">
-					<h4 class="m-b-lg">게시판</h4>
+					<h4 class="m-b-lg">거래명세서 </h4>
 					<p class="m-b-lg docs">
 					</p>
 					<div class="table-responsive">
@@ -47,13 +48,13 @@ PagingDTO paging =(PagingDTO)request.getAttribute("paging");
 <%
 boolean dataChk = false;
 int rowNum =paging.getTotal()-((paging.getP()-1)*paging.getPageRow());
-Iterator<BoardVO> it = list.iterator();
+Iterator<TradingVO> it = list.iterator();
 while(it.hasNext()){
-	BoardVO data = it.next();
+	TradingVO data = it.next();
 %>
 							<tr>
-								<td><%=rowNum--%>.<a href="View?bo_num=<%=data.getBo_num()%>"><%=data.getBo_title()%></a></td>
-								<td align="right"><%=data.getBo_inputdate() %></td>
+								<td><%=rowNum--%><a href="TradingView?tra_num=<%=data.getTra_num()%>"><%=data.getTra_account()%></a></td>
+								<td align="right"><%=data.getTra_inputdate() %></td>
 							</tr>
 <%
 dataChk=true;

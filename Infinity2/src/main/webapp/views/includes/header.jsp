@@ -246,14 +246,14 @@ if((sess_id == null || "".equals(sess_id))){
         </li>
         
             <li class="has-submenu">
-          <a href="javascript:void(0)" class="submenu-toggle">
+         	 <a href="javascript:void(0)" class="submenu-toggle">
             <i class="menu-icon  fa fa-plus-circle zmdi-hc-lg"></i>
-            <span class="menu-text">플래너</span>
+            <span class="menu-text">ETC</span>
             <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
-          </a>
-          <ul class="submenu">
-            <li><a href="Slider"><span class="menu-text">제이쿼리 </span></a></li>
-         
+         	 </a>
+         	 <ul class="submenu">
+           	 <li><a href="Slider"><span class="menu-text">제이쿼리 </span></a></li>
+           	 <li><a href="TradingList"><span class="menu-text">거래명세서 </span></a></li>
           </ul>
         </li>
         

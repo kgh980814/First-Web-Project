@@ -1,6 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,13 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.TradingDetailVO;
 import model.TradingVO;
+import service.TradingDetailServiceImpl;
 import service.TradingServiceImpl;
 
 /**
  * Servlet implementation class TradingController
  */
-@WebServlet("/TradingStatementWrite")
+@WebServlet("/TradingWrite")
 public class TradingWriteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -50,11 +55,11 @@ public class TradingWriteController extends HttpServlet {
 		TradingServiceImpl service = new TradingServiceImpl();
 		int tra_num = service.create(trading);
 		
-		System.out.println("AI"+tra_num);
+		System.out.println("A.I"+tra_num);
 		
-		//목요일
-		for(int i=0; i < request.getParameterValues("tradingDate").length;i++) {
-			String tradingDate = request.getParameterValues("tradingDate")[i];
+		//여러개 값을 받을때 배열로 받아 반복하여 값을 받아옴.
+		for(int i = 0; i < request.getParameterValues("tradingDate").length;i++) {
+			String tradingDateStr = request.getParameterValues("tradingDate")[i];
 			String subject = request.getParameterValues("subject")[i];
 			String standard = request.getParameterValues("standard")[i];
 			String quantity = request.getParameterValues("quantity")[i];
@@ -63,12 +68,37 @@ public class TradingWriteController extends HttpServlet {
 			String taxAmount = request.getParameterValues("taxAmount")[i];
 			String ect = request.getParameterValues("ect")[i];
 			
-			if(tradingDate == null || "".equals(tradingDate)) {
+			if(tradingDateStr == null || "".equals(tradingDateStr)) {//빈값이거나 NULL값이면 반복을 멈춤
 				break;
 			}
-			System.out.println(tradingDate);
-			System.out.println(subject);
-		}
+			Date tradingDate = null;
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				tradingDate = format.parse(tradingDateStr);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//등록하는 작업
+			TradingDetailVO tradingDetail  = new TradingDetailVO();
+			tradingDetail.setTrad_refnum(tra_num);
+			tradingDetail.setTrad_tradingDate(tradingDate);
+			tradingDetail.setTrad_subject(subject);
+			tradingDetail.setTrad_standard(standard);
+			tradingDetail.setTrad_quantity(Integer.parseInt(quantity));
+			tradingDetail.setTrad_unitPrice(Integer.parseInt(unitPrice));
+			tradingDetail.setTrad_supplyPrice(Integer.parseInt(supplyPrice));
+			tradingDetail.setTrad_taxAmount(Integer.parseInt(taxAmount));
+			tradingDetail.setTrad_ect(ect);
+			
+			//
+			TradingDetailServiceImpl service2 = new TradingDetailServiceImpl();
+			service2.create(tradingDetail);//
+	
+		}//for(int i = 0; i < request.getParameterValues("tradingDate").length;i++)
+		
+		response.sendRedirect("TradingList");
+		
 	}
 
 }

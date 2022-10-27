@@ -3,7 +3,7 @@ package model;
 public class PagingDTO {
 
 	private int p = 1; //현재페이지
-	private final int pageRow = 20; //보여줄 줄(행)수
+	private final int pageRow = 5; //보여줄 줄(행)수
 	
 	private int total; //전체글수
 	private int totalPage; //전체 페이지수
