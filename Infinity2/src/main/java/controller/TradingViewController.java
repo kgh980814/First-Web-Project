@@ -53,8 +53,15 @@ public class TradingViewController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		int tra_num = Integer.parseInt(request.getParameter("tra_num"));
+		
+		TradingDetailServiceImpl service = new TradingDetailServiceImpl();
+		service.modify(request);
+		
+		response.sendRedirect("TradingView?tra_num="+tra_num);
 	}
 
 }
