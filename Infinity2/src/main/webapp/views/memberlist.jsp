@@ -2,7 +2,8 @@
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
 String url = "jdbc:mysql://localhost:3306/bigdata?serverTimezone=Asia/Seoul";
 String user = "root";
@@ -86,33 +87,27 @@ try {
 								<th>가입일자</th>
 								<th>관리</th>
 							</tr>
-							<%
-							int num =1;
-							Iterator<HashMap<String, String>> it = list.iterator();
-							while (it.hasNext()) {
-								HashMap<String, String> data = it.next();
-							%>
-							<tr>
-								<td><%=num++ %></td>
-								<td><%=data.get("mb_id")%></td>
-								<td><%=data.get("mb_name")%></td>
-								<td><%=data.get("mb_email")%></td>
-								<td><%=data.get("mb_phone")%></td>
-								<td><%=data.get("mb_birth")%></td>
-								<td><%=data.get("mb_gender")%></td>
-								<td><%=data.get("mb_joindate")%></td>
-								<td><button data-mb_id="<%=data.get("mb_id")%>" class="btn"> 탈퇴 </button></td>
-							</tr>
-<%
-}
-if(num == 1){
-%>
+							<c:set value="1" var= "num"/>
+							<c:forEach var="data" items="${list}">
+								<tr>
+								<td><c:out value="${num}"/><%//=num++ %></td>
+								<td><c:out value="${data.mb_id}"/><%//=data.get("mb_id")%></td>
+								<td><c:out value="${data.mb_name}"/><%//=data.get("mb_name")%></td>
+								<td><c:out value="${data.mb_email}"/><%//=data.get("mb_email")%></td>
+								<td><c:out value="${data.mb_phone}"/><%//=data.get("mb_phone")%></td>
+								<td><c:out value="${data.mb_birth}"/><%//=data.get("mb_birth")%></td>
+								<td><c:out value="${data.mb_gender}"/><%//=data.get("mb_gender")%></td>
+								<td><fmt:formatDate value="${data.mb_joindate}" pattern="yyyy-MM-dd"/><%//=data.get("mb_joindate")%></td>
+								<td><button data-mb_id="<c:out value="${data.mb_id}"/><%//=data.get("mb_id")%>" class="btn">탈퇴</button></td>
+								</tr>
+						<c:set value="${num+1}" var="num" />
+							</c:forEach>
+							<c:if test="${num eq 1 }">	
 							<tr>
 								<td colspan="8">가입된 회원이 없습니다.</td>
-								<%
-}
-								%>
 							</tr>
+							</c:if>
+							
 						</table>
 					</div>
 				</div>

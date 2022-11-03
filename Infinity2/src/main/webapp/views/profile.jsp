@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%--  <%=session.getAttribute("sess_id") %> --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 MemberVO member =(MemberVO)request.getAttribute("profile");
 %>
@@ -33,7 +34,7 @@ MemberVO member =(MemberVO)request.getAttribute("profile");
 			</div>
 			<div class="text-center">
 				<h4 class="profile-info-name m-b-lg">
-					<a href="javascript:void(0)" class="title-color"><%=member.getMb_name() %></a>
+					<a href="javascript:void(0)" class="title-color"><c:out value = "${profile.mb_name }"/><%//=member.getMb_name() %></a>
 				</h4>
 				<div>
 					<a href="javascript:void(0)" class="m-r-xl theme-color"><i

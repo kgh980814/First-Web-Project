@@ -20,7 +20,7 @@ import service.CommentServiceImpl;
 /**
  * Servlet implementation class ViewController
  */
-@WebServlet("/View")
+@WebServlet("/Single")
 public class ViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
