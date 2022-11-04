@@ -52,30 +52,10 @@
         <a href="Index" class="logo float-left m-0">POSCO <span class="text-primary">.</span></a>
 
         <ul class="js-clone-nav d-none d-lg-inline-noone text-left site-menu">
-          <li class="active"><a href="index">Home</a></li>
-          <li class="has-children">
-            <a href="#">Pages</a>
-            <ul class="dropdown">
-              <li><a href="portfolio">Portfolio</a></li>
-              <li><a href="blog">Blog</a></li>
-              <li><a href="single">Single</a></li>
-              <li><a href="about">About</a></li>
-              <li><a href="Contact">Contact</a></li>
-
-              <li class="has-children">
-                <a href="#">Menu Two</a>
-                <ul class="dropdown">
-                  <li><a href="#">Sub Menu One</a></li>
-                  <li><a href="#">Sub Menu Two</a></li>
-                  <li><a href="#">Sub Menu Three</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Menu Three</a></li>
-            </ul>
+          <li class="active"><a href="Index">Home</a></li>
+          <li class="has-children"> 
           </li>
-          <li><a href="portfolio">Portfolio</a></li>
-          <li><a href="elements">Elements</a></li>
-          <li><a href="about">About</a></li>
+          
           <li><a href="Contact">Contact Us</a></li>
         </ul>
 

@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
+
+<c:if test="${empty sessionScope.sess_id}">
+<c:redirect url="Login"></c:redirect>
+</c:if>  
+<%--  <%
 String sess_id = (String)session.getAttribute("sess_id");
 //로그인이 되지않았을 때 login로 이동
 if((sess_id == null || "".equals(sess_id))){
 	response.sendRedirect("Login");	
 }
-%>
+%> --%>
 <!DOCTYPE html>
 <html lang="en">
 <head>

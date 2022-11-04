@@ -146,9 +146,9 @@
 
         <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
           <div class="blog_entry">
-            <a href="single"><img src="images/news_37.jpg" alt="Free Website Template by Untree.co" class="img-fluid"></a>
+            <a href="Single"><img src="images/news_37.jpg" alt="Free Website Template by Untree.co" class="img-fluid"></a>
             <div class="p-4 bg-white">
-              <h3><a href="single">포스코, 포항제철소 태풍 피해 복구 및 수급 안정화 차질 없이 추진중</a></h3>
+              <h3><a href="single">포스코, 포항제철소 태풍 피해 복구 ..</a></h3>
               <span class="date">2022.10.27</span>
               <!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
               <p class="more"><a href="#">Read more...</a></p> -->
@@ -158,7 +158,7 @@
 
         <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
           <div class="blog_entry">
-            <a href="single"><img src="images/news_36.jpg" alt="Free Website Template by Untree.co" class="img-fluid"></a>
+            <a href="Single"><img src="images/news_36.jpg" alt="Free Website Template by Untree.co" class="img-fluid"></a>
             <div class="p-4 bg-white">
               <h3><a href="single">멀티머티리얼 시대가 온다!</a></h3>
               <span class="date">2022.10.27</span>
@@ -170,7 +170,7 @@
 
         <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
           <div class="blog_entry">
-            <a href="single"><img src="images/news_35.jpg" alt="Free Website Template by Untree.co" class="img-fluid"></a>
+            <a href="Single"><img src="images/news_35.jpg" alt="Free Website Template by Untree.co" class="img-fluid"></a>
             <div class="p-4 bg-white">
               <h3><a href="single">라떼 꼰대 물렀거라!!</a></h3>
               <span class="date">2022.10.24</span>

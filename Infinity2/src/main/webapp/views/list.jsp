@@ -8,7 +8,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ include file="includes/header.jsp"%>
  <%
-//List<BoardVO> list = (List<BoardVO>)request.getAttribute("list");
+List<BoardVO> list = (List<BoardVO>)request.getAttribute("list");
 PagingDTO paging =(PagingDTO)request.getAttribute("paging");
 %> 
  <style>
@@ -50,11 +50,16 @@ PagingDTO paging =(PagingDTO)request.getAttribute("paging");
 
 
 							<tr>
-								<td>${rowNum}<%//=rowNum--%>.<a href="View?bo_num=${data.bo_num}<%//=data.getBo_num()%>">${data.bo_title}<%//=data.getBo_title()%></a></td>
+								<td><c:out value="${rowNum}"/><%//=rowNum--%>.
+								<a href="View?bo_num=<c:out value="${data.bo_num}"/><%//=data.getBo_num()%>">
+								<c:out value="${data.bo_title}"/><%//=data.getBo_title()%></a></td>
+
+						
 								<td align="right"><fmt:formatDate value="${data.bo_inputdate}" pattern="yyyy-MM-dd"/><%//=data.getBo_inputdate() %></td>
 							</tr>
 							<c:set value="${rowNum-1}" var="rowNum"></c:set>
-</c:forEach>				
+</c:forEach>		
+	
 <c:if test="${num eq 0 }">
 							<tr>
 								<td colspan="2">등록된 글이 없습니다.</td>

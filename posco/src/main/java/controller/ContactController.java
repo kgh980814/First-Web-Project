@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.SendMail;
 import model.ContactVO;
 import service.ContactServiceImpl;
 
@@ -39,16 +40,18 @@ public class ContactController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String fname = request.getParameter("fname");
 		String email = request.getParameter("email");
-		String message = request.getParameter("message");
+		String message = request.getParameter("message");//값 받아오기
 		
+		message += "<br>"+email;
 		ContactVO contact = new ContactVO();
 		contact.setCo_fname(fname);
 		contact.setCo_email(email);
-		contact.setCo_message(message);
+		contact.setCo_message(message);//출력할것들
 		
 		ContactServiceImpl service = new ContactServiceImpl();
-		service.create(contact);
+		service.create(contact);//DB 저장
 		
+		new SendMail().send("tregon5@naver.com", "kgh58043252@gmail.com",fname + "님이 견적을 의뢰를 합니다.", message);
 		response.sendRedirect("Contact?res=OK");
 	}
 

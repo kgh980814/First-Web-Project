@@ -1,14 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%
+<%@ taglib uri ="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+
+<c:if test="${! empty sessionScope.sess_id}">
+<c:redirect url="Main"></c:redirect>
+</c:if>
+
+<%-- <%
 String sess_id= (String) session.getAttribute("sess_id");
 //if(sess_id == null || sess_id.equals(""))x
 //로그인 했을 때 dashboard.jsp로 이동
 if(!(sess_id == null || "".equals(sess_id))){
 	response.sendRedirect("Main");
 }
-%>
+%> --%>
 
 <%@ include file="includes/loginHeader.jsp" %>
 

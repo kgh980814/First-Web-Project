@@ -20,11 +20,11 @@
 </head>
 <body class="simple-page">
 	<div id="back-to-home">
-		<a href="index.jsp" class="btn btn-outline btn-default"><i class="fa fa-home animated zoomIn"></i></a>
+		<a href="Index" class="btn btn-outline btn-default"><i class="fa fa-home animated zoomIn"></i></a>
 	</div>
 	<div class="simple-page-wrap">
 		<div class="simple-page-logo animated swing">
-			<a href="index.jsp">
+			<a href="Index">
 				<span><i class="fa fa-gg"></i></span>
 				<span>Infinity</span>
 			</a>
