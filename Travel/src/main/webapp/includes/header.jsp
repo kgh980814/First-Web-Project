@@ -6,12 +6,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Travelo</title>
+    <title>여기어때 벤치마킹</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- <link rel="manifest" href="site.webmanifest"> -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="img/goodchoice.png">
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
@@ -46,7 +46,7 @@
                         <div class="row align-items-center">
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo">
-                                    <a href="index">
+                                    <a href="Index">
                                         <img src="img/logo.png" alt="">
                                     </a>
                                 </div>
@@ -56,11 +56,11 @@
                                     <nav>
                                         <ul id="navigation">
                                             <li><a class="active" href="Index">home</a></li>
-                                            <li><a href="about">소개</a></li>
-                                            <li><a class="" href="Travel_destination">내주변</a></l/li>
-                                            <li><a href="blog">후기 <i class="ti-angle-down"></i></a>
+                                            <li><a href="About">소개</a></li>
+                                            <li><a class="" href="Aroundme">내주변</a></li>
+                                            <li><a href="List">후기 <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
-                                                    <li><a href="blog">게시판</a></li>
+                                                    <li><a href="List">게시판</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="Contact">문의 사항</a></li>
