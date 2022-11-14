@@ -134,13 +134,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/scrollIt.js"></script>
     <script src="js/jquery.scrollUp.min.js"></script>
     <script src="js/wow.min.js"></script>
+    
     <script src="js/nice-select.min.js"></script>
     <script src="js/jquery.slicknav.min.js"></script>
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/gijgo.min.js"></script>
     <script src="js/slick.min.js"></script>
-   
+     <script src="js/jquery-ui.min.js"></script>
+    <script src="js/range.js"></script>
 
     
     <!--contact js-->

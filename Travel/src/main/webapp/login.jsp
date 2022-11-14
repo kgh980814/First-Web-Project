@@ -38,7 +38,9 @@
 					<span class="login100-form-title p-b-26">
 					</span>
 					<span class="login100-form-title p-b-48">
+					<a href="Index">
 						 <img src="img/logo.png" alt="">
+					</a>
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
